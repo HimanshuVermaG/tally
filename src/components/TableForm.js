@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 
-export default function TableForm({ sn, setSn, description, setDescription, hsn, setHsn, per, setPer, sgst, setSgst, quantity, setQuantity, rate, setRate, amount, setAmount, list, setList, total, setTotal, sgstValue, setSgstValue, itemTotal, setItemTotal, taxTotal, setTaxTotal,sgstList,setSgstList}) {
+export default function TableForm({ sn, setSn, description, setDescription, hsn, setHsn, per, setPer, sgst, setSgst, quantity, setQuantity, rate, setRate, amount, setAmount, list, setList, total, setTotal, sgstValue, setSgstValue, itemTotal, setItemTotal, taxTotal, setTaxTotal,name,setName,address,setAddress,state,setState,code,setCode,gstin,setGstin,clientName,setClientName,clientAddress,setClientAddress,clientState,setClientState,clientCode,setClientCode,invoiceNumber,setInvoiceNumber,invoiceDate,setInvoiceDate,}) {
     const [isEditing, setIsEditing] = useState(false)
 
     // Form Submit
@@ -62,31 +62,8 @@ export default function TableForm({ sn, setSn, description, setDescription, hsn,
         setSgstValue(sgstValue => ({
             ...sgstValue,
             ...updatedValue
-            }));
-        // Object.entries(sgstValue).forEach(([key, value]) => {
-        //     sgstList.push(value)
-        // });   
+            }));   
     }
-
-    // const updateSgst = ()=>{
-    //     var tempAmount = amount
-    //     var tempHsn = hsn
-    //     var tempTaxableValue = amount
-    //     var tempTaxAmount = amount*sgst*.01
-
-    //     if(sgstValue.find((row) => row.sgst === sgst)){
-    //         var tempSgstValue = sgstValue.find((row) => row.sgst === sgst)
-    //         tempAmount += amount
-    //         tempTaxAmount += tempSgstValue["taxAmount"]
-    //         setSgstValue(sgstValue.filter((row) => row.sgst !== sgst))
-    //         setSgstValue([...sgstValue,{hsn:tempHsn,amount:tempTaxableValue,sgst,"taxAmount":tempTaxAmount}])
-    //     }
-    //     else{
-    //         setSgstValue([...sgstValue,{hsn,amount,sgst,"taxAmount":tempTaxAmount}])
-    //     }
-    //     Object.keys(sgstValue).forEach(function(key) {
-    //         console.log(key)
-    // })}
 
     // Edit Function
     const editRow = (id) => {
@@ -104,7 +81,61 @@ export default function TableForm({ sn, setSn, description, setDescription, hsn,
     }
 
     return (
-        <>
+        <>  
+        <article className='md:grid grid-cols-2 gap-5'>
+                <div className='flex flex-col'>
+                  <label htmlFor="name">Enter your name</label>
+                  <input type="text" name="name" id="text" placeholder="Enter Name" autoComplete='off'
+                    value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="address">Enter your address</label>
+                  <input type="text" name="address" id="address" placeholder="Enter Address" autoComplete='off' value={address} onChange={(e) => setAddress(e.target.value)} />
+                </div>
+              </article>
+              <article className='md:grid grid-cols-3 gap-5'>
+                <div className='flex flex-col'>
+                  <label htmlFor="gstin">Enter GSTIN</label>
+                  <input type="text" name="gstin" id="gstin" placeholder="Enter gstin number" autoComplete='off' value={gstin} onChange={(e) => setGstin(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="state">Enter your state</label>
+                  <input type="text" name="state" id="state" placeholder="Enter State" autoComplete='off' value={state} onChange={(e) => setState(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="code">Enter Code</label>
+                  <input type="number" name="code" id="code" placeholder="Enter code number" autoComplete='off' value={code} onChange={(e) => setCode(e.target.value)} />
+                </div>
+              </article>
+              <article className='md:grid grid-cols-3 gap-5 md:mt-10'>
+                <div className='flex flex-col'>
+                  <label htmlFor="clientName">Enter client name</label>
+                  <input type="text" name="clientName" id="clientName" placeholder="Enter name" autoComplete='off' value={clientName} onChange={(e) => setClientName(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="clientAddress">Enter client address</label>
+                  <input type="text" name="clientAddress" id="clientAddress" placeholder="Enter Client Address" autoComplete='off' value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="clientState">Enter client state</label>
+                  <input type="text" name="clientState" id="clientState" placeholder="Enter State" autoComplete='off' value={clientState} onChange={(e) => setClientState(e.target.value)} />
+                </div>
+              </article>
+              <article className='md:grid grid-cols-3 gap-5'>
+                <div className='flex flex-col'>
+                  <label htmlFor="clientCode">Enter Client Code</label>
+                  <input type="number" name="clientCode" id="clientCode" placeholder="Enter code number" autoComplete='off' value={clientCode} onChange={(e) => setClientCode(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="invoiceNumber">Invoice Number</label>
+                  <input type="number" name="invoiceNumber" id="invoiceNumber" placeholder="Enter Invoice number" autoComplete='off' value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+                </div>
+                <div className='flex flex-col'>
+                  <label htmlFor="invoiceDate">Invoice Date</label>
+                  <input type="date" name="invoiceDate" id="invoiceDate" autoComplete='off' value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
+                </div>
+              </article>
+              <article>
             <form onSubmit={handleSubmit}>
                 <div className="mt-10 md:grid grid-cols-3 gap-10">
                     <div className="flex flex-col">
@@ -176,6 +207,7 @@ export default function TableForm({ sn, setSn, description, setDescription, hsn,
                     <h2 className="flex items-end justify-end text-gray-800 text-2xl font-bold capitalize">Total: ₹ {total}</h2>
                 </div>
             </form>
+            </article>
         </>
     )
 }

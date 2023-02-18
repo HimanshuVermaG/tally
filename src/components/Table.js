@@ -2,24 +2,24 @@ import React, { useRef } from 'react'
 import ReactToPrint from "react-to-print";
 import NumToWords from "./NumToWords"
 
-export default function Table({ details, list, total, currency,sgstList,taxTotal,totalAmount,itemTotal,per}) {
+export default function Table({ details, list, total, currency, sgstList,taxTotal,totalAmount,itemTotal,per}) {
   const componentRef = useRef()
   return (
     <>
       <div className='p-5' ref={componentRef}>
         <header className="flex flex-col items-center justify-center mb-5">
           <div>
-            <h1 className="font-bold tracking-wide text-2xl mb-3" >Tax Invoice</h1>
+            <h1 className="font-bold tracking-wide text-xl mb-3" >Tax Invoice</h1>
           </div>
         </header>
-        <div className="mainDetail grid grid-cols-2">
+        <div className="grid grid-cols-2">
           <div className='name'>
             <span>{details.name}</span>
             <p>{details.address}</p>
             <p>GSTIN/UIN: {details.gstin}</p>
             <p>State Name: {details.state}, Code: {details.code}</p>
           </div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 text-sm">
             <div>
               <div className="box grid grid-rows-2"><p>Invoice No.</p><span>{details.invoiceNumber}</span></div> 
               <div className="box grid grid-rows-2"><p>Delivery Note</p><span></span></div> 
@@ -39,7 +39,7 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
             <p>{details.clientAddress}</p>
             <p>State Name: {details.clientState}, Code: {details.clientCode}</p>
           </div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 text-sm">
             <div>
               <div className="box grid grid-rows-2"><p>Despatch Document No.</p><span></span></div> 
               <div className="box grid grid-rows-2"><p>Dispached Throgh</p><span></span></div>  
@@ -54,9 +54,9 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
         <table className='w-full list' >
           <thead>
             <tr className="bg-gray-200">
-              <th className="sn">S.No</th>
+              <th className="w-1">S.No</th>
               <th className='desc'>Description</th>
-              <th>HSN/SAC</th>
+              <th className='w-1'>HSN/SAC</th>
               <th>Quantity</th>
               <th>Rate</th>
               <th>per</th>
@@ -66,19 +66,19 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
           <tbody height="250px">
           {list.map(({ sn, id, description, hsn, quantity, rate, per, amount }) => (
             <React.Fragment key={id} >
-                <tr height="30px">
+                <tr>
                   <td>{sn}</td>
-                  <td><span>{description}</span></td>
+                  <td ><div className='text-left desc'>{description}</div></td>
                   <td>{hsn}</td>
-                  <td className='text-right'>{quantity} {per}</td>
-                  <td className='text-right'>{rate}</td>
+                  <td >{quantity} {per}</td>
+                  <td >{rate}</td>
                   <td>{per}</td>
-                  <td className='text-right'>{currency(amount)}</td>
+                  <td >{currency(amount)}</td>
                 </tr>
             </React.Fragment>
           ))}
             <tr ><td></td><td></td><td></td><td></td><td></td><td></td><br /></tr>
-            <tr className='text-right' height="30px">
+            <tr>
               <td></td>
               <td><span className='italic'>SGST</span></td>
               <td></td>
@@ -87,7 +87,7 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
               <td></td>
               <td>{currency(taxTotal)}</td>
             </tr>
-            <tr className='text-right' height="30px">
+            <tr>
               <td></td>
               <td><span className='italic'>CGST</span></td>
               <td></td>
@@ -96,7 +96,7 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
               <td></td>
               <td>{currency(taxTotal)}</td>
             </tr>
-            <tr className='text-right' height="30px">
+            <tr>
               <td></td>
               <td><span className='italic'>ROUND OFF</span></td>
               <td></td>
@@ -110,12 +110,12 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
           <tbody>
           <tr className='border-t-2 border-black'>
               <td></td>
-              <td className='text-right'>Total</td>
+              <td >Total</td>
               <td></td>
-              <td className='text-right'>{currency(itemTotal)} {per}</td>
+              <td >{currency(itemTotal)} {per}</td>
               <td></td>
               <td></td>
-              <td className='text-right'><span>₹ {currency(totalAmount)}</span></td>
+              <td ><span>₹ {currency(totalAmount)}</span></td>
             </tr>
           </tbody>
         </table>
@@ -149,7 +149,7 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
             </React.Fragment>
           ))}
             <tr>
-              <td className='text-right' ><span>Total</span></td>
+              <td  ><span>Total</span></td>
               <td><span>{currency(total)}</span></td>
               <td></td>
               <td><span>{currency(taxTotal)}</span></td>
