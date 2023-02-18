@@ -2,9 +2,43 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 
-export default function TableForm({ sn, setSn, description, setDescription, hsn, setHsn, per, setPer, sgst, setSgst, quantity, setQuantity, rate, setRate, amount, setAmount, list, setList, total, setTotal, sgstValue, setSgstValue, itemTotal, setItemTotal, taxTotal, setTaxTotal,name,setName,address,setAddress,state,setState,code,setCode,gstin,setGstin,clientName,setClientName,clientAddress,setClientAddress,clientState,setClientState,clientCode,setClientCode,invoiceNumber,setInvoiceNumber,invoiceDate,setInvoiceDate,}) {
+export default function TableForm({list, setList,sgstValue, setSgstValue, itemTotal, setItemTotal, taxTotal, setTaxTotal,setDetails,setTotal,total,setShowInvoice, setTotalAmount,sgstList,per,setPer}) {
+    const [name, setName] = useState("")
+    const [sn,setSn] = useState(1)
+    const [address, setAddress] = useState("")
+    const [state, setState] = useState("")
+    const [code, setCode] = useState("")
+    const [gstin, setGstin] = useState("")
+    const [clientName, setClientName] = useState("")
+    const [clientAddress, setClientAddress] = useState("")
+    const [clientState, setClientState] = useState("")
+    const [clientCode, setClientCode] = useState("")
+    const [invoiceNumber, setInvoiceNumber] = useState("")
+    const [invoiceDate, setInvoiceDate] = useState("")
+    const [sgst, setSgst] = useState("")
+    const [description, setDescription] = useState("")
+    const [hsn, setHsn] = useState("")
+    const [quantity, setQuantity] = useState("")
+    const [rate, setRate] = useState("")
+    const [amount, setAmount] = useState(0)
     const [isEditing, setIsEditing] = useState(false)
 
+    const detailsValue = () => {
+        const newDetails = {
+          name,
+          address,
+          state,
+          code,
+          gstin,
+          clientName,
+          clientAddress,
+          clientState,
+          clientCode,
+          invoiceNumber,
+          invoiceDate
+        }
+        setDetails(newDetails)
+      }
     // Form Submit
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,7 +80,11 @@ export default function TableForm({ sn, setSn, description, setDescription, hsn,
         setList(list.filter((row) => row.id !== id))
         setSn(sn - 1)
     }
-
+    const updateSgstList = (sgstValue)=>{
+        Object.entries(sgstValue).forEach(([key, value]) => {
+            sgstList.push(value)
+        });  
+    }
     const updateSgst = (sgst,amount) =>{
         let updatedValue = {};
         let tempTax = amount*sgst*.01
@@ -54,10 +92,10 @@ export default function TableForm({ sn, setSn, description, setDescription, hsn,
         setItemTotal(itemTotal+quantity*1)
         setTaxTotal(tempTaxTotal.toFixed(2))
         if (sgstValue?.[sgst]) {
-            updatedValue = {[sgst]:{"sgst":sgst,"taxAmount":sgstValue[sgst]["taxAmount"]*1+tempTax.toFixed(2)*1,"taxValue":sgstValue[sgst]["taxValue"]*1+amount*1,"hsn":sgstValue[sgst]["hsn"]+hsn*1}};
+            updatedValue = {[sgst]:{"sgst":sgst,"taxAmount":sgstValue[sgst]["taxAmount"]*1+tempTax.toFixed(2)*1,"taxValue":sgstValue[sgst]["taxValue"]*1+amount*1,"hsn":sgstValue[sgst]["hsn"]*1+hsn*1}};
         }
         else{
-            updatedValue = {[sgst]:{"sgst":sgst,"taxAmount":tempTax.toFixed(2)*1,"taxValue":amount*1,"hsn":hsn*1}};
+            updatedValue = {[sgst]:{"sgst":sgst,"taxAmount":tempTax.toFixed(2)*1,"taxValue":amount*1,"hsn":hsn}};
         }
         setSgstValue(sgstValue => ({
             ...sgstValue,
@@ -208,6 +246,9 @@ export default function TableForm({ sn, setSn, description, setDescription, hsn,
                 </div>
             </form>
             </article>
+            <button className='mt-5 text-white font-bold bg-blue-500 py-2 px-4 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300'
+                onClick={() => {setShowInvoice(true); detailsValue();updateSgstList(sgstValue);setTotalAmount(Math.round(taxTotal*2+total*1))}}
+              >Preview Invoice</button>
         </>
     )
 }
