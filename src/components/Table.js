@@ -150,12 +150,12 @@ export default function Table({ details, list, total, currency,sgstList,taxTotal
           ))}
             <tr>
               <td className='text-right' ><span>Total</span></td>
-              <td>{currency(total)}</td>
+              <td><span>{currency(total)}</span></td>
               <td></td>
-              <td>{currency(taxTotal)}</td>
+              <td><span>{currency(taxTotal)}</span></td>
               <td></td>
-              <td>{currency(taxTotal)}</td>
-              <td>{currency(taxTotal*2)}</td>
+              <td><span>{currency(taxTotal)}</span></td>
+              <td><span>{currency(taxTotal*2)}</span></td>
             </tr>
           </tbody>
         </table>
