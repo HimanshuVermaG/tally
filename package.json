@@ -1,6 +1,7 @@
 {
   "name": "tally",
-  "homepage": "https://HimanshuVermaG.github.io/tally",
+  "homepage": "https://HimanshuVermaG.github.io/tally/",
+  "main": "index.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
