@@ -204,7 +204,7 @@ export default function TableForm({list, setList,sgstValue, setSgstValue, itemTo
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="amount">Item amount</label>
-                        <p>₹ {amount}</p>
+                        <p>₹ {amount*sgst*.01*2+amount*1}</p>
                     </div>
                 </div>
                 <button className='mt-5 text-white font-bold bg-blue-500 py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300' type="submit">{isEditing ? "Edit Item" : "Add Item"}</button>
